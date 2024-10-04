@@ -6,7 +6,9 @@ In this project you will design and implement vector and vector operations for t
 CSUF wants to make Inventory management and appointment management system to maintain data related to donations and students who take advantage of this service. They are asking newly admitted students to design a system that tracks all the operations. The pantry management has asked you to add features to manage inventory and appointments. Your task is to create functions which will add functionalities to the management system. This are some functional requirements:
 
 You are given with two template classes for inventory management system:
+
 Item - Item class template decides the properties of a particular item. It has four properties: name, expiration, category, quantity. 
+
 Inventory - Inventory function will take care of all the operations. Inventory class will have one vector which will store objects of Item. 
 
 1) Add New Item: Write a function addNewItem() which will add a new Item in your vector. While adding a new element in the vector, check whether it already exists in the vector or not. If it exists in a vector, then display the message as “Item is already present in inventory”. 
