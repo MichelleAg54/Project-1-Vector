@@ -1,5 +1,5 @@
 # Project-1-Vector
-Introduction
+Introduction:
 In this project you will design and implement vector and vector operations for the management system. You will be provided with a starter template with necessary classes and templates. You need to add functions that are specified in the document. Do not change the main function, I have added test cases in it.
 
 ## Food Pantry Management System
