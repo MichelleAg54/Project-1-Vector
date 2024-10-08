@@ -73,7 +73,7 @@ template<typename T> class Inventory{
         for (const auto& item : items) {
             totalQuantity += item.quantity;
         }
-        std::cout << "Total Number of items in inventory: " << totalQuantity << std::endl;
+        std::cout << "Total Number of items in inventory = " << totalQuantity << std::endl;
     }
 
     void searchItem(const T& name) {
@@ -137,7 +137,7 @@ template<typename T>class AppointmentSystem{
                 count++;
             }
         }
-        std::cout << "Total Appointments on " << date << " at " << time << ": " << count << std::endl;
+        std::cout << "Total Appointments = " << count << std::endl;
     }
  
     void display(){
