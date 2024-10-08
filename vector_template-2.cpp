@@ -19,15 +19,81 @@ template <typename T> class Item{
         }
 };
 template<typename T> class Inventory{
+    private:
+    std::vector<Item<T>> items;
+
     public:
-        // Write Your code 
-        void displayItems(){
-            std::cout<<"-------Inventory-------"<<std::endl;
-            std::cout<<std::left<<std::setw(20)<<"Name"<<std::setw(15)<<"Expiration"<<std::setw(15)<<"Quantity"<<std::setw(10)<<"Category"<<std::endl;
-            for(int i=0; i<items.size();i++){
-                std::cout<<std::left << std::setw(20)<<items[i].name<<std::setw(15)<<items[i].expiration<<std::setw(15)<<items[i].quantity<<std::setw(15)<<items[i].category<<std::endl;
+    // write code
+    void addNewItem(const Item<T>& item) {
+        for (const auto& existingItem : items) {
+            if (existingItem.name == item.name) {
+                std::cout << "Item is already present in inventory." << std::endl;
+                return;
+                }
+        }
+        items.push_back(item);
+    }
+
+    void increaseQuantity(const T& name, int amount) {
+        for (auto& item : items) {
+            if (item.name == name) {
+                item.quantity += amount;
+                std::cout << "Quantity has increased: " << item.quantity << "\n";
+                return;
             }
         }
+        throw "Item not found";
+    }
+
+    void updateItem(const T& name, const T& expiration, const T& category, int quantity) {
+        for (auto& item : items) {
+            if (item.name == name) {
+                item.expiration = expiration;
+                item.quantity = quantity;
+                item.category = category;
+                std::cout << "Item " << item.name << " updated \n";
+                return;
+            }
+        }
+        throw "Item not found";
+    }
+
+    void removeItem(const T& name) {
+        for (auto it = items.begin(); it != items.end(); ++it) {
+            if (it->name == name) {
+                items.erase(it);
+                return;
+            }
+        }
+        throw "Item not found";
+    }
+
+    void Total() {
+        int totalQuantity = 0;
+        for (const auto& item : items) {
+            totalQuantity += item.quantity;
+        }
+        std::cout << "Total Number of items in inventory: " << totalQuantity << std::endl;
+    }
+
+    void searchItem(const T& name) {
+        for (const auto& item : items) {
+            if (item.name == name) {
+                std::cout << "Query for Cerels\n" << "Item = " << item.name << "\nExpiration = " << item.expiration
+                          << "\nCategory = " << item.category << "\nQuantity = " << item.quantity << std::endl;
+                return;
+            }
+        }
+        throw "Item not found!!";
+    }
+
+    void displayItems(){
+        std::cout << "-------Inventory-------" << std::endl;
+        std::cout << std::left << std::setw(20) << "Name" << std::setw(15) << "Expiration" << std::setw(15) << "Quantity" << std::setw(10) << "Category" << std::endl;
+        for(int i=0; i<items.size();i++){
+            std::cout<<std::left << std::setw(20)<<items[i].name<<std::setw(15)<<items[i].expiration<<std::setw(15)<<items[i].quantity<<std::setw(15)<<items[i].category<<std::endl;
+        }
+    }
 };
 template<typename T>class Appointment{
     public: 
@@ -43,18 +109,53 @@ template<typename T>class Appointment{
         }
 };
 template<typename T>class AppointmentSystem{
-        public:
-        // Write Your code 
-        void display(){
-            std::cout<<"-------Appointments-------"<<std::endl;
-            std::cout<<std::left<<std::setw(20)<<"Name"<<std::setw(15)<<"Date"<<std::setw(15)<<"Time"<<std::setw(15)<<"CWID"<<std::endl;
-            for(int i=0; i<ap.size();i++){
-                std::cout<<std::left << std::setw(20)<<ap[i].c_name<<std::setw(15)<<ap[i].ap_date<<std::setw(15)<<ap[i].ap_time<<std::setw(15)<<ap[i].CWID<<std::endl;
+    private:
+    std::vector<Appointment<T>> appointments;
+
+    public:
+    // Write Your code
+    void schedule(const Appointment<T>& appointment) {
+        for (const auto& existingAppointment : appointments) {
+            if (existingAppointment.CWID == appointment.CWID) {
+                std::cout << "You have already scheduled an appointment!!!" << std::endl;
+                return;
             }
         }
+        appointments.push_back(appointment);
+    }
+
+    void removeRecent() {
+        if (!appointments.empty()) {
+            appointments.pop_back();
+        }
+    }
+
+    void Total_appointments(const T& date, const T& time) {
+        int count = 0;
+        for (const auto& appointment : appointments) {
+            if (appointment.ap_date == date && appointment.ap_time == time) {
+                count++;
+            }
+        }
+        std::cout << "Total Appointments on " << date << " at " << time << ": " << count << std::endl;
+    }
+ 
+    void display(){
+        std::cout << "-------Appointments-------" << std::endl;
+        std::cout << std::left<<std::setw(20) << "Name"
+                  << std::setw(15) << "Date" << std::setw(15)
+                  << "Time" << std::setw(15) << "CWID" << std::endl;
+        for(int i=0; i<appointments.size();i++){
+            std::cout << std::left << std::setw(20)
+                      << appointments[i].c_name<<std::setw(15)
+                      << appointments[i].ap_date << std::setw(15)
+                      << appointments[i].ap_time << std::setw(15)
+                      << appointments[i].CWID << std::endl;
+        }
+    }
 };
 int main(){
-    /* Remove comments and run following test cases
+    // Remove comments and run following test cases
     Inventory<std::string> i1;
     Item<std::string> I1("Protien Bar","05/09/2023","Snacks",4);
     i1.addNewItem(I1);
@@ -110,5 +211,5 @@ int main(){
     Appointment<std::string> a5("Chris Lynn","09/12/2023","12:00PM","879455714");
     s1.schedule(a4);
     s1.removeRecent();
-    s1.display();*/
+    s1.display();
 }
